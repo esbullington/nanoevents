@@ -88,5 +88,14 @@
         return i !== cb
       })
     }.bind(this)
-  }
+  },
+
+  once: function(event, cb) {
+    const unbind = this.on(event, function () {
+      unbind()
+      cb.apply(this, arguments)
+    })
+    return unbind
+  } 
+
 }
